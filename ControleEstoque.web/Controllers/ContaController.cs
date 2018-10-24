@@ -6,20 +6,13 @@ using System.Web.Mvc;
 
 namespace ControleEstoque.web.Controllers
 {
-    public class HomeController : Controller
+    public class ContaController : Controller
     {
-        [Authorize]
-        public ActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Login(String returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
-        [Authorize]
-        public ActionResult Sobre()
-        {
-
-            return View();
-        }
-
     }
 }
