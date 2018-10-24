@@ -8,7 +8,7 @@ namespace ControleEstoque.web.Controllers
 {
     public class GraficoController : Controller
     {
-        // GET: Graficos
+        // GET: Grafico
         public ActionResult PerdaMes()
         {
             return View();
