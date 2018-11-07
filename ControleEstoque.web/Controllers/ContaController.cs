@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ControleEstoque.web.Models;
+using System.Web.Security;
 
 namespace ControleEstoque.web.Controllers
 {
@@ -25,7 +26,34 @@ namespace ControleEstoque.web.Controllers
                 return View(login);
             }
 
+            var achou = (login.Usuario == "rogerio" && login.Senha == "123");
+
+            if (achou)
+            {
+                FormsAuthentication.SetAuthCookie(login.Usuario, login.LembrarMe);
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    RedirectToAction("Index", "Home");
+                }
+            } 
+            else
+            {
+                ModelState.AddModelError("", "Login Inválido");
+            }
+
             return View(login);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
